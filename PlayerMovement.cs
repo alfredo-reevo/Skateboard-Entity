@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -46,9 +46,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 normalVector = Vector3.up;
     private Vector3 wallNormalVector;
 
+
+    // Animation
+    private Animator anim;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -157,7 +162,11 @@ public class PlayerMovement : MonoBehaviour
         //Apply forces to move player
         rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
+
+        // Animation
+        
     }
+
 
     private void Jump()
     {
@@ -201,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Perform the rotations
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
-        orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
+        this.gameObject.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
 
     private void CounterMovement(float x, float y, Vector2 mag)
